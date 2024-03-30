@@ -12,7 +12,10 @@ export class UsersService {
     { id: 3, name: 'Chris' },
     { id: 4, name: 'Daisy' },
     { id: 5, name: 'Ed' },
-  ];
+  ].map((u) => ({
+    ...u,
+    avatar: `https://api.dicebear.com/7.x/miniavs/svg?seed=${u?.id}`,
+  }));
 
   async users(): Promise<User[]> {
     return this.storedUsers;

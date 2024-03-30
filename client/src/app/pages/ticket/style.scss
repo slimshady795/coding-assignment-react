@@ -1,0 +1,48 @@
+.ticket-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  .ant-typography {
+    margin: 0;
+  }
+  .content {
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+    .content-left {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      flex: 1;
+      .description {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+    }
+    .content-right {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      width: 400px;
+      .update-select {
+        width: fit-content;
+        min-width: 200px;
+      }
+      .ticket-info {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        min-height: 400px;
+        padding: 16px;
+        border: 1px solid gray;
+        border-radius: 8px;
+        .ticket-info-item {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+        }
+      }
+    }
+  }
+}

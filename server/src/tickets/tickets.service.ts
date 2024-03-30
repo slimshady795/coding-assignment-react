@@ -10,35 +10,82 @@ export class TicketsService {
   private storedTickets: Ticket[] = [
     {
       id: 1,
+      title: 'Install a monitor arm',
       description: 'Install a monitor arm',
       assigneeId: 1,
-      completed: false,
+      completed: true,
     },
     {
       id: 2,
+      title: 'Move the desk to the new location',
       description: 'Move the desk to the new location',
-      assigneeId: 1,
+      assigneeId: 2,
       completed: false,
+    },
+    {
+      id: 3,
+      title: 'Login',
+      description: 'Login',
+      assigneeId: 3,
+      completed: false,
+    },
+    {
+      id: 4,
+      title: 'Sign up',
+      description: 'Sign up',
+      assigneeId: 4,
+      completed: true,
+    },
+    {
+      id: 5,
+      title: 'Invite user',
+      description: 'Invite user',
+      assigneeId: 5,
+      completed: true,
     },
   ];
 
-  private nextId = 3;
+  private nextId = this.storedTickets?.length + 1;
 
   constructor(private usersService: UsersService) {}
 
-  async tickets(): Promise<Ticket[]> {
-    return this.storedTickets;
+  async tickets(param: {
+    assignee?: string;
+    status?: string;
+  }): Promise<Ticket[]> {
+    return this.storedTickets.filter((t) => {
+      const isFilterAssignee = (param.assignee || '').includes(
+        `${t?.assigneeId}`
+      );
+      const isFilterStatus = t?.completed === (param.status === 'true');
+
+      if (param?.assignee && param?.status) {
+        return isFilterAssignee && isFilterStatus;
+      }
+      if (param?.assignee) {
+        return isFilterAssignee;
+      }
+      if (param?.status) {
+        return isFilterStatus;
+      }
+      return true;
+    });
   }
 
   async ticket(id: number): Promise<Ticket | null> {
     return this.storedTickets.find((t) => t.id === id) ?? null;
   }
 
-  async newTicket(payload: { description: string }): Promise<Ticket> {
+  async newTicket(payload: {
+    title: string;
+    description: string;
+    assigneeId: number;
+  }): Promise<Ticket> {
     const newTicket: Ticket = {
       id: this.nextId++,
+      title: payload.title,
       description: payload.description,
-      assigneeId: null,
+      assigneeId: payload.assigneeId || null,
       completed: false,
     };
 

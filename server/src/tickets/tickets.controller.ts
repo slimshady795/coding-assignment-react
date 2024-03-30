@@ -9,6 +9,7 @@ import {
   Delete,
   Body,
   HttpCode,
+  Query,
 } from '@nestjs/common';
 import { randomDelay } from '../utils/random-delay';
 import { TicketsService } from './tickets.service';
@@ -18,9 +19,9 @@ export class TicketsController {
   constructor(private ticketsService: TicketsService) {}
 
   @Get()
-  async getTickets() {
+  async getTickets(@Query() param) {
     await randomDelay();
-    return this.ticketsService.tickets();
+    return this.ticketsService.tickets(param);
   }
 
   @Get(':id')
@@ -32,7 +33,14 @@ export class TicketsController {
   }
 
   @Post()
-  async createTicket(@Body() createDto: { description: string }) {
+  async createTicket(
+    @Body()
+    createDto: {
+      title: string;
+      description: string;
+      assigneeId: number;
+    }
+  ) {
     await randomDelay();
     return this.ticketsService.newTicket(createDto);
   }

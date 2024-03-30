@@ -1,0 +1,34 @@
+.tickets {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  .tickets-body {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
+    .filter {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      .filter-select {
+        min-width: 200px;
+      }
+    }
+  }
+
+  .tickets-table {
+    .ant-table-cell {
+      padding-top: 8px !important;
+      padding-bottom: 8px !important;
+      .update-select {
+        min-width: 120px;
+        .ant-select-selector {
+          border: none;
+          padding-right: 0;
+        }
+      }
+    }
+  }
+}
